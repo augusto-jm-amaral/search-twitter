@@ -3,22 +3,24 @@ var config = require('config');
 
 module.exports = function(app) {
 
-    mongoose.connect(config.DBHost, { server: { poolSize: 30 }});
+  mongoose.set('debug', config.dbdebug);
+  
+  mongoose.connect(config.dburl, config.dbconf);
 
-    mongoose.connection.on('disconnected',  () => {
-      console.log('Mongoose:: Desconectado de ');
-    });
+  mongoose.connection.on('disconnected',  () => {
+    console.log('Mongoose:: Desconected.');
+  });
 
-    mongoose.connection.on('error',  (erro) => {
-      console.log('Mongoose:: Erro na conexão, erro: ' + erro);
-    });
+  mongoose.connection.on('error',  (erro) => {
+    console.log('Mongoose:: Conection error, ' + erro);
+  });
 
-    process.on('SIGINT', () => {
-      mongoose.connection.close(() => {
-        console.log('Mongose:: Desconectado pelo termino da aplicação.');
-        process.exit(0);
-      });
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Mongose:: Desconected.');
+      process.exit(0);
     });
+  });
 
   return mongoose;
 };

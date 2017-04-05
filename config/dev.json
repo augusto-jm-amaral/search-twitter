@@ -1,3 +1,9 @@
 {
-	"DBHost": "mongodb://localhost/twitterstream_dev"
+	"dburl": "mongodb://localhost/twitterstream_dev",
+  "dbconf": { 
+    "server": {
+     "poolSize": 30 
+   },
+  "dbdebug": true
+ }
 }

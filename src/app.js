@@ -1,9 +1,9 @@
 'use strict';
 
 const app              = require('express')(),
-      http             = require('http'),
+      server           = require('http').createServer(app),
       io               = require('socket.io'), 
-      consign          = require('consign');
+      consign          = require('consign'),
       express          = require('express'),
       path             = require('path'),
       bodyParser       = require('body-parser'),
@@ -15,10 +15,8 @@ const app              = require('express')(),
       morgan           = require('morgan'),
       compress         = require('compression');
 
-app.set('port', 3000)
-   .set('public','./public');
-
-app.use(compress())
+app.set('public','./public')
+   .use(compress())
    .options('*', cors())
    .use(cors())
    .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
@@ -27,9 +25,11 @@ app.use(compress())
    .use(bodyParser.urlencoded({ extended: true }))
    .use(express.static(app.get('public')));
 
-io = io(server);
+const socketServer = io(server);
+
+app.io = socketServer;
 app.use(function(req, res, next) {
-  req.io = io;
+  req.io = socketServer;
   next();
 });
 
@@ -38,7 +38,7 @@ consign({
     cwd: 'src'
   })
   .then('middlewares/db.js')
-  .then('models')
+  // .then('models')
   .then('services')
   .into(app);
 
