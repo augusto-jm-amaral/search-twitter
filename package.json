@@ -4,7 +4,8 @@
   "description": "API REST em nodejs<br> Case: <strong>Chat Online</strong>",
   "main": "app.js",
   "scripts": {
-    "start": "export NODE_ENV=dev && set NODE_ENV=dev && node ./src/index.js",
+    "serverdev": "export NODE_ENV=dev && set NODE_ENV=dev && node ./src/index.js",
+    "frontdev": "webpack-dev-server",
     "test": "export NODE_ENV=test && set NODE_ENV=test && mocha --timeout 10000"
   },
   "repository": {
@@ -44,6 +45,9 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "vue": "^2.2.6",
-    "vue-loader": "^11.3.4"
+    "vue-loader": "^11.3.4",
+    "vue-template-compiler": "^2.2.6",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
   }
 }

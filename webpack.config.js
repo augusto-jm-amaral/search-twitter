@@ -12,7 +12,7 @@ var htmlConf = new HtmlWebpackPlugin({
 
 module.exports = [{
   name: 'Bundle JS',
-  entry: ['./_public/scss/main.scss','./_public/app.js'],
+  entry: ['./_public/scss/main.scss','./_public/main.js'],
   output: {
     filename: PROD ? './public/bundle.min.js' : './public/bundle.js'
   },
@@ -28,6 +28,7 @@ module.exports = [{
     rules: [
       {
         test: /\.scss$/,
+        exclude: [/node_modules/],
         use: [{
             loader: "style-loader" // creates style nodes from JS strings
         }, {
@@ -43,13 +44,17 @@ module.exports = [{
       },
       {
         test: /\.vue$/,
+        exclude: [/node_modules/],
         loader: 'vue-loader'
       }
     ]
   },
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
-    compress: true
+    contentBase: path.join(__dirname, "public"),
+    compress: true,
+    historyApiFallback: true,
+    inline: true,
+    port: 3001
   },
   resolve: {
       alias: { 'vue' : '../node_modules/vue/dist/vue.min.js'}
