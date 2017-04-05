@@ -12,7 +12,7 @@ var htmlConf = new HtmlWebpackPlugin({
 
 module.exports = [{
   name: 'Bundle JS',
-  entry: ['./_public/scss/main.scss','./_public/main.js'],
+  entry: ['./_public/assets/scss/main.scss','./_public/main.js'],
   output: {
     filename: PROD ? './public/bundle.min.js' : './public/bundle.js'
   },
@@ -57,6 +57,9 @@ module.exports = [{
     port: 3001
   },
   resolve: {
-      alias: { 'vue' : '../node_modules/vue/dist/vue.min.js'}
+      alias: { 
+        'vue'  : '../node_modules/vue/dist/vue.min.js',
+        'vuex' : '../node_modules/vuex/dist/vuex.min.js' 
+      }
   }
 }];
