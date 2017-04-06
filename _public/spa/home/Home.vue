@@ -1,6 +1,9 @@
 <template>
   <section class="home">
-    <h1>Home</h1>
+    <form v-on:submit.prevent="onSubmit">
+      <label>Your name</label>
+      <input v-model='name' type="text" name="name">
+    </form>
   </section>
 </template>
 <script src="./Home.js"></script>
